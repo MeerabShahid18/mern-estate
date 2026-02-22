@@ -44,7 +44,7 @@ export default function SignUp() {
       
     }catch(error){
        setLoading(false);
-      setError(error.message);
+       setError('Something went wrong');
     }
   } ;
   return (
@@ -62,7 +62,7 @@ export default function SignUp() {
         <span className='text-blue-700'>Sign In</span>
         </Link>
       </div>
-        {error && <p className='text-red-700'>{error}</p>}
+        {error && <p className='text-red-700 my-3 text-center font-semibold text-2xl'>{'Something went wrong'}</p>}
     </div>
   )
 }
