@@ -3,13 +3,14 @@ const app=express();
 const mongoose=require("mongoose");
 const userRouter=require("./routers/user.router");
 const authRouter=require("./routers/auth.router");
-mongoose.connect("mongodb://127.0.0.1:27017/mern-estate")
+const dotenv=require("dotenv");
+dotenv.config();
+mongoose.connect("mongodb+srv://alishair7071_db_user:tyOgHUl0aLbJKfQX@lms-cluster.b0szrmk.mongodb.net/?appName=lms-cluster")
 .then(()=> console.log("Connected to MongoDb"))
 .catch((err)=> console.log(err));
 app.use(express.json());
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
-
 app.use((err, req, res, next)=>{
     const statusCode=err.statusCode||500;
     const message=err.message||"Internal server error";
