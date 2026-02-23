@@ -5,7 +5,7 @@ const userRouter=require("./routers/user.router");
 const authRouter=require("./routers/auth.router");
 const dotenv=require("dotenv");
 dotenv.config();
-mongoose.connect("mongodb+srv://alishair7071_db_user:tyOgHUl0aLbJKfQX@lms-cluster.b0szrmk.mongodb.net/?appName=lms-cluster")
+mongoose.connect("mongodb://127.0.0.1:27017/mern-estate")
 .then(()=> console.log("Connected to MongoDb"))
 .catch((err)=> console.log(err));
 app.use(express.json());
