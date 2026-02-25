@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {Link, useNavigate} from 'react-router-dom';
+import OAuth from '../components/OAuth';
 
 export default function SignUp() {
   const [formData, setformData]=useState({});
@@ -53,6 +54,7 @@ export default function SignUp() {
         <input type='email' placeholder='email' className='p-3 border rounded-lg ' id='email' onChange={handleChange}/>
         <input type='password' placeholder='password' className='p-3 border rounded-lg ' id='password' onChange={handleChange}/>
         <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-90 disabled:opacity-80 ' type='submit'>{loading?"Loading...":"Sign Up"}</button>
+        <OAuth/>
       </form>
       <div className='flex gap-2 mt-3'>
         <p>Have an account?</p>
