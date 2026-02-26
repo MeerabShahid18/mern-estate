@@ -16,7 +16,9 @@ export default function OAuth() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({name: result.user.dusplayName, email: result.user.email, photo: result.user.photoURL}),
+                body: JSON.stringify({name: result.user.displayName, email: result.user.email, photo: result.user.photoURL 
+                    ? result.user.photoURL 
+                    : "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"}),
             })
             const data=await res.json();
              dispatch(signInSuccess(data));
