@@ -4,6 +4,8 @@ const mongoose=require("mongoose");
 const userRouter=require("./routers/user.router");
 const authRouter=require("./routers/auth.router");
 const dotenv=require("dotenv");
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 dotenv.config();
 // mongoose.connect("mongodb+srv://meerabshahid270_db_user:m3hUumpcwVGE7OVk@cluster0.rpk2uw0.mongodb.net/?appName=Cluster0")
 mongoose.connect("mongodb://127.0.0.1:27017/mern-estate")

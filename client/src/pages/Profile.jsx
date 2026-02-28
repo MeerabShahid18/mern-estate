@@ -20,6 +20,7 @@ export default function Profile() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [avatarUrl, setAvatarUrl] = useState("");
+  const [password, setPassword] = useState("");
   console.log("Current user is : ",currentUser) 
  
   // Pre-fill form when currentUser loads
@@ -122,6 +123,7 @@ export default function Profile() {
         username,
         email,
         avatar: avatarUrl,
+        password, 
       }),
     });
    
@@ -186,7 +188,7 @@ export default function Profile() {
 
         <input type="text" placeholder="username" value={username} id="username" className="border p-3 rounded-lg" onChange={(e) => setUsername(e.target.value)}/>
         <input type="email" placeholder="email" id="email" value={email} className="border p-3 rounded-lg" onChange={(e) => setEmail(e.target.value)} />
-        <input type="password" placeholder="password" id='password' className="border p-3 rounded-lg"/>
+        <input type="password" placeholder="password" id='password' className="border p-3 rounded-lg" onChange={(e) => setPassword(e.target.value)}/>
         <button type="submit" className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-90">Update</button>
       </form>
       <div className="flex justify-between mt-3">
