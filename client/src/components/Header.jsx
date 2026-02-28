@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import { useSelector } from "react-redux"
 export default function Header() {
   const {currentUser}=useSelector(state=>state.user)
+ 
+  
   return (
     <header className='bg-slate-200 shadow-md'>
         <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
@@ -18,19 +20,30 @@ export default function Header() {
           <Link to='/'><li className="hidden sm:inline text-slate-700 hover:underline">Home</li></Link>
           <Link to='/about'><li className="hidden sm:inline text-slate-700 hover:underline"> About</li></Link> 
           
-          {/* <Link to='profile'>
+          {/* <Link to='sign-in'>
             {currentUser?.avator?(<img className="rounded-full h-7 w-7 object-cover" src={currentUser.avator} alt='profile' />
             ):(
-            <li className="text-slate-700 hover:underline"> profile</li>
+            <li className="text-slate-700 hover:underline"> Sign in</li>
             )}
         </Link>  */}
 
-        <Link to='profile'><img
+        {/* <Link to='profile'><img
           src={currentUser?.avatar || "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"}
           alt="profile"
           className="rounded-full h-7 w-7 object-cover"
         />
-        </Link>
+        </Link> */}
+
+      <Link to={currentUser ? '/profile' : '/sign-in'}>
+        {currentUser ? <img
+          src={ currentUser?.avatar || "https://cdn.pixabay.com/photo/2023/02/18/11/00/icon-7797704_640.png"}
+          alt="profile"
+          className="rounded-full h-7 w-7 object-cover"
+        /> : (
+          <li className="text-slate-700 hover:underline">Sign in</li>
+        )}
+      </Link>
+
         </ul>
         </div>
     </header>

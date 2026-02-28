@@ -20,9 +20,17 @@ const initialState={
         signInFailure:(state, action)=>{
             state.error= action.payload;
              state.loading=false;
-        }
+        },
+         setUser: (state, action) => {
+            state.currentUser = action.payload;
+        },
+        updateAvatar: (state, action) => {
+            if (state.currentUser) {
+                state.currentUser.avatar = action.payload;
+            }
+        },
     }
  });
 
- export const {signInStart, signInSuccess,signInFailure }=userSlice.actions;
+ export const {signInStart, signInSuccess,signInFailure ,setUser ,updateAvatar}=userSlice.actions;
  export default userSlice.reducer;
