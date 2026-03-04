@@ -4,7 +4,7 @@ import { supabase } from "../supabase"
 import {setUser} from "../redux/user/userSlice"
 
 export default function Profile() {
-  const {currentUser}=useSelector((state)=>state.user)
+  const {currentUser, loading, error}=useSelector((state)=>state.user)
    const dispatch = useDispatch();
    
   const fileRef=useRef(null);
@@ -32,22 +32,7 @@ export default function Profile() {
     }
   }, [currentUser]);
 
-  //NOT INCLUDE
-  // useEffect(()=>{
-  //   if(file){
-  //     handleFileUpload(file);
-  //   }
-  // }, [file])
-  
-// const updateUserAvatar = async (avatarUrl) => {
-//   const { data, error } = await supabase
-//     .from('users')
-//     .update({ avatar: avatarUrl })
-//     .eq('id', currentUser.id);
-
-//   if (error) console.log("DB update error:", error);
-//   else console.log("Avatar updated successfully:", data);
-// }
+ 
 
   const handleFileUpload=async(file)=>{
     //FILE UPLOAD TASK
@@ -79,35 +64,9 @@ export default function Profile() {
       setAvatarUrl(imageUrl);
       console.log(imageUrl);
 
-
-       //NOT INCLUDED
-      // setFormData({ ...formData, avatar: imageUrl });
-
     
 };
 
-//  Handle Update button click
-  // const handleUpdate = async (e) => {
-  //   e.preventDefault();
-  //   console.log("abc")
-  //   try {
-  //     const updates = {
-  //       username,
-  //       email,
-  //       avatar: avatarUrl,
-  //     };
-
-      
-
-  //     // Update Redux so Header reflects new avatar
-  //     dispatch(setUser({ ...currentUser, ...updates }));
-
-  //     alert("Profile updated successfully!");
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  //   dispatch(setUser({ ...currentUser, username, email, avatar: avatarUrl }));
-  // };
 
 
    const handleUpdate = async (e) => {
@@ -189,7 +148,7 @@ export default function Profile() {
         <input type="text" placeholder="username" value={username} id="username" className="border p-3 rounded-lg" onChange={(e) => setUsername(e.target.value)}/>
         <input type="email" placeholder="email" id="email" value={email} className="border p-3 rounded-lg" onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder="password" id='password' className="border p-3 rounded-lg" onChange={(e) => setPassword(e.target.value)}/>
-        <button type="submit" className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-90">Update</button>
+        <button disabled={loading} type="submit" className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-90">{loading?"Loading...":"Update"}</button>
       </form>
       <div className="flex justify-between mt-3">
         <span className="text-red-700 cursor-pointer">Delete Account</span>
