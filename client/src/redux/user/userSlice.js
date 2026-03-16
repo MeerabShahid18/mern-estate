@@ -40,9 +40,22 @@ const initialState={
          deleteUserFailure:(state, action)=>{
             state.error = action.payload;
             state.loading = false;    
+        },
+        logoutUserStart:(state, action)=>{
+             state.loading = true;
+        },
+         logoutUserSuccess:(state, action)=>{
+            state.currentUser = null;
+            state.loading = false;
+            state.error = null;
+        },
+         logoutUserFailure:(state, action)=>{
+            state.error = action.payload;
+            state.loading = false;    
         }
+
     }
  });
 
- export const {signInStart, signInSuccess,signInFailure ,setUser ,updateAvatar, deleteUserStart, deleteUserSuccess,deleteUserFailure}=userSlice.actions;
+ export const {signInStart, signInSuccess,signInFailure ,setUser ,updateAvatar, deleteUserStart, deleteUserSuccess,deleteUserFailure,logoutUserStart, logoutUserSuccess,logoutUserFailure}=userSlice.actions;
  export default userSlice.reducer;
