@@ -29,8 +29,20 @@ const initialState={
                 state.currentUser.avatar = action.payload;
             }
         },
+        deleteUserStart:(state, action)=>{
+             state.loading = true;
+        },
+         deleteUserSuccess:(state, action)=>{
+            state.currentUser = null;
+            state.loading = false;
+            state.error = null;
+        },
+         deleteUserFailure:(state, action)=>{
+            state.error = action.payload;
+            state.loading = false;    
+        }
     }
  });
 
- export const {signInStart, signInSuccess,signInFailure ,setUser ,updateAvatar}=userSlice.actions;
+ export const {signInStart, signInSuccess,signInFailure ,setUser ,updateAvatar, deleteUserStart, deleteUserSuccess,deleteUserFailure}=userSlice.actions;
  export default userSlice.reducer;

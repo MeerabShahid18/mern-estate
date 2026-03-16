@@ -1,5 +1,6 @@
 const User=require("../models/user.model")
 const bcryptjs=require("bcryptjs");
+const { errorHnadler } = require("../utils/error");
 const updateUser=async(req, res, next)=>{
     try{
         const {id}=req.params;
@@ -22,6 +23,19 @@ const updateUser=async(req, res, next)=>{
 
 
 }
+
+const deleteUser=async(req, res, next)=>{
+    if(req.user.id!=req.params.id) return next(errorHnadler(401, 'You can only delete your account'));
+    try {
+        await User.findByIdAndDelete(req.param.id);
+        res.clearCookie('access_token');
+        req.status(200).json({message:'User has been deleted'})
+    } catch (error) {
+        next(error);
+    }
+
+}
 module.exports={
-    updateUser
+    updateUser,
+    deleteUser
 }
