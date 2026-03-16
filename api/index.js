@@ -4,6 +4,7 @@ const mongoose=require("mongoose");
 const userRouter=require("./routers/user.router");
 const authRouter=require("./routers/auth.router");
 const dotenv=require("dotenv");
+const listingRouter=require('./routers/listing.router');
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 dotenv.config();
@@ -14,6 +15,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/mern-estate")
 app.use(express.json());
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/listing", listingRouter);
 
 app.use((err, req, res, next)=>{
     const statusCode=err.statusCode||500;
