@@ -1,6 +1,7 @@
 import { useSelector , useDispatch} from "react-redux"
 import { useRef , useState, useEffect} from "react"
 import { supabase } from "../supabase"
+import {Link} from 'react-router-dom';
 import {deleteUserFailure, deleteUserStart, deleteUserSuccess, logoutUserFailure, logoutUserStart, logoutUserSuccess, setUser} from "../redux/user/userSlice"
 
 export default function Profile() {
@@ -180,6 +181,9 @@ const handlesignout=async()=>{
         <input type="email" placeholder="email" id="email" value={email} className="border p-3 rounded-lg" onChange={(e) => setEmail(e.target.value)} />
         <input type="password" placeholder="password" id='password' className="border p-3 rounded-lg" onChange={(e) => setPassword(e.target.value)}/>
         <button disabled={loading} type="submit" className="bg-slate-700 text-white rounded-lg p-3 uppercase hover:opacity-90">{loading?"Loading...":"Update"}</button>
+        <Link className='bg-green-700 text-center text-white p-3 rounded-lg uppercase hover:opacity-90' to={"/create-listing"}>
+        Create Listing
+        </Link>
       </form>
       <div className="flex justify-between mt-3">
         <span onClick={handleDeleteUser} className="text-red-700 cursor-pointer">Delete Account</span>
