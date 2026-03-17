@@ -37,40 +37,35 @@ export default function Profile() {
 
   const handleFileUpload=async(file)=>{
     //FILE UPLOAD TASK
-       setFilePerc(5);
-       setFilePerc(20);
-       setFilePerc(40);
-       setFilePerc(50);
-      const fileName = `${Date.now()}-${file.name}`;
-       const { data, error } = await supabase.storage
-        .from('avatars')
-        .upload(fileName, file);
-      
-      if (error) {
-        setFileUploadError(true);
-        console.log('Upload error:', error);
-        return;
-      }
-      const { data: publicUrlData } = supabase.storage
-        .from('avatars')
-        .getPublicUrl(fileName);
-
-      const imageUrl = publicUrlData?.publicUrl;
-      if (!imageUrl) {
-        setFileUploadError(true);
-        return;
-      }
-
-      setFilePerc(100);
-      setAvatarUrl(imageUrl);
-      console.log(imageUrl);
-
+    setFilePerc(50);
+    const fileName = `${Date.now()}-${file.name}`;
+    const { data, error } = await supabase.storage
+    .from('avatars')
+    .upload(fileName, file);
     
-};
+    if (error) {
+      setFileUploadError(true);
+      console.log('Upload error:', error);
+      return;
+    }
+    const { data: publicUrlData } = supabase.storage
+      .from('avatars')
+      .getPublicUrl(fileName);
+
+    const imageUrl = publicUrlData?.publicUrl;
+    if (!imageUrl) {
+      setFileUploadError(true);
+      return;
+    }
+
+    setFilePerc(100);
+    setAvatarUrl(imageUrl);
+    console.log(imageUrl);
+  };
 
 
 
-   const handleUpdate = async (e) => {
+const handleUpdate = async (e) => {
   e.preventDefault();
 
   try {
@@ -88,14 +83,11 @@ export default function Profile() {
     });
    
 
-    
     const data = await res.json();
     if (!res.ok) {
       alert(data.message);
       return;
     }
-
-    
 
     dispatch(setUser(data));
     alert("Profile updated successfully!");
