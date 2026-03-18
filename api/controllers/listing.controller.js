@@ -1,4 +1,4 @@
-const {Listing}=require('../models/listing.model');
+const Listing=require('../models/listing.model');
 const createListing=async(req, res, next)=>{
     try { 
         const listing=await Listing.create(req.body)
