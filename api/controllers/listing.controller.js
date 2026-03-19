@@ -24,6 +24,22 @@ const deleteListing=async(req, res, next)=>{
         next(error);
     }
 }
+
+const updateListing=async(req, res, next)=>{
+    const listing=await Listing.findById(req.params.id, req.body, {new:true});
+    if(!listing){
+        return next(errorHnadler(404, 'Listing not found'));
+    }
+    if(req.user.id !== req.params.id){
+        return next(errorHnadler(401, 'You can only update your listings'))
+    }
+    try {
+        const updatedListing=await Listing.findByIdAndUpdate(req.params.id);
+        res.status(200).json(updatedListing);
+    } catch (error) {
+        next(error);
+    }
+}
 module.exports={
     createListing,
     deleteListing
