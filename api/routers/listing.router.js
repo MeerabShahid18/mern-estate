@@ -1,8 +1,8 @@
 const express=require("express");
 const router=express.Router();
-const {createListing}=require('../controllers/listing.controller');
+const {createListing , deleteListing}=require('../controllers/listing.controller');
 const { verifyToken } = require("../utils/verifyUser");
 
 router.post('/create',verifyToken,createListing);
-
+router.delete('/delete/:id', verifyToken, deleteListing)
 module.exports=router;
