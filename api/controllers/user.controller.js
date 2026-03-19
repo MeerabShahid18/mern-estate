@@ -3,6 +3,9 @@ const bcryptjs=require("bcryptjs");
 const { errorHnadler } = require("../utils/error");
 const Listing = require("../models/listing.model");
 const updateUser=async(req, res, next)=>{
+    if(req.user.id !== req.params.id){
+    return next(errorHandler(401, "You can only update your account"));
+    }
     try{
         const {id}=req.params;
         const{username, email, avatar, password:newPassword}=req.body;
@@ -15,7 +18,7 @@ const updateUser=async(req, res, next)=>{
             {$set:updatedData},
             {new:true}
         )
-        if(!updatedUser) return res.status(404).json(message,"user not found");
+        if(!updatedUser) return res.status(404).json({message:"user not found"});
         const { password, ...rest } = updatedUser._doc;
         return res.status(200).json(rest);
     }catch(e){
@@ -28,9 +31,9 @@ const updateUser=async(req, res, next)=>{
 const deleteUser=async(req, res, next)=>{
     if(req.user.id!=req.params.id) return next(errorHnadler(401, 'You can only delete your account'));
     try {
-        await User.findByIdAndDelete(req.param.id);
+        await User.findByIdAndDelete(req.params.id);
         res.clearCookie('access_token');
-        req.status(200).json({message:'User has been deleted'})
+        res.status(200).json({message:'User has been deleted'})
     } catch (error) {
         next(error);
     }
@@ -40,8 +43,8 @@ const deleteUser=async(req, res, next)=>{
 const getUserListings=async(req, res, next)=>{
     if(req.user.id===req.params.id){
     try {
-        const listings=await Listing.find({userRef: req.param.id});
-        req.status(200).json(listings);
+        const listings=await Listing.find({userRef: req.params.id});
+        res.status(200).json(listings);
         
     } catch (error) {
         next(error)

@@ -4,4 +4,5 @@ const {createListing}=require('../controllers/listing.controller');
 const { verifyToken } = require("../utils/verifyUser");
 
 router.post('/create',verifyToken,createListing);
+
 module.exports=router;

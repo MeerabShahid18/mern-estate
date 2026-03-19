@@ -1,4 +1,5 @@
 const Listing=require('../models/listing.model');
+const { errorHnadler } = require('../utils/error');
 const createListing=async(req, res, next)=>{
     try { 
         const listing=await Listing.create(req.body)
@@ -7,4 +8,6 @@ const createListing=async(req, res, next)=>{
         next(error)
     }
 };
+
+
 module.exports={createListing}
