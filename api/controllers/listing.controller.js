@@ -26,21 +26,38 @@ const deleteListing=async(req, res, next)=>{
 }
 
 const updateListing=async(req, res, next)=>{
-    const listing=await Listing.findById(req.params.id, req.body, {new:true});
+    // const listing=await Listing.findById(req.params.id, req.body, {new:true});
+    const listing=await Listing.findById(req.params.id);
     if(!listing){
         return next(errorHnadler(404, 'Listing not found'));
     }
-    if(req.user.id !== req.params.id){
+    // if(req.user.id !== req.params.id){
+    if(req.user.id !== listing.userRef){
         return next(errorHnadler(401, 'You can only update your listings'))
     }
     try {
-        const updatedListing=await Listing.findByIdAndUpdate(req.params.id);
+        //  const updatedListing=await Listing.findByIdAndUpdate(req.params.id);
+        const updatedListing=await Listing.findByIdAndUpdate(req.params.id, req.body, {new:true});
         res.status(200).json(updatedListing);
     } catch (error) {
         next(error);
     }
 }
+
+const getListing=async(req, res, next)=>{
+    try {
+        const listing=await Listing.findById(req.params.id);
+        if(!listing){
+            return next(errorHnadler(404,'Listing not found'));
+        }
+        res.status(200).json(listing);
+    } catch (error) {
+        next(error)
+    }
+}
 module.exports={
     createListing,
-    deleteListing
+    deleteListing,
+    updateListing,
+    getListing
 }
