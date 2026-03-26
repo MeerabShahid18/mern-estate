@@ -9,7 +9,8 @@ const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 dotenv.config();
 // mongoose.connect("mongodb+srv://meerabshahid270_db_user:m3hUumpcwVGE7OVk@cluster0.rpk2uw0.mongodb.net/?appName=Cluster0")
-mongoose.connect("mongodb://127.0.0.1:27017/mern-estate")
+// mongoose.connect("mongodb://127.0.0.1:27017/mern-estate") -------->local compass
+mongoose.connect(process.env.MONGO)
 .then(()=> console.log("Connected to MongoDb"))
 .catch((err)=> console.log(err));
 app.use(express.json());
