@@ -8,6 +8,7 @@ const listingRouter=require('./routers/listing.router');
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 dotenv.config();
+const PORT = process.env.PORT || 3000;
 // mongoose.connect("mongodb+srv://meerabshahid270_db_user:m3hUumpcwVGE7OVk@cluster0.rpk2uw0.mongodb.net/?appName=Cluster0")
 // mongoose.connect("mongodb://127.0.0.1:27017/mern-estate") -------->local compass
 mongoose.connect(process.env.MONGO)
@@ -28,4 +29,4 @@ app.use((err, req, res, next)=>{
     });
     
 });
-app.listen(3000, ()=> console.log("server is running on port 3000"));
+app.listen(PORT, ()=> console.log("server is running on port 3000"));
